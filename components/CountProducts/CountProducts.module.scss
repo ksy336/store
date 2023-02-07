@@ -29,8 +29,8 @@
   color: #2E2E33 !important;
   transition: 0.5s;
 }
-.icon_minus:hover,
-.icon_plus:hover {
+.icon_minus:active,
+.icon_plus:active {
   transform: scale(0.96);
 }
 .count_number {

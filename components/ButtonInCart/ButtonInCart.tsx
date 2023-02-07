@@ -6,12 +6,13 @@ interface Props {
     children?: ReactNode;
     onClick: () => void;
     type: any;
+    setItemsToLocalStorage: () => {}
 }
-export default function ButtonInCart(props: Props) {
+export default function ButtonInCart(props: Props, {setItemsToLocalStorage}: any) {
     return (
         <>
             <button onClick={props.onClick} type={props.type || "button"} className={classes.button_inCart}>{props.children}</button>
-            <CountProducts />
+            <CountProducts setItemsToLocalStorage={setItemsToLocalStorage} />
         </>
     )
 }

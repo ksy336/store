@@ -52,7 +52,7 @@ export default function Card({product, itemsToLocalStorage, setItemsToLocalStora
                     <ButtonToCart onClick={addToCartHandler} type="button">В корзину</ButtonToCart>
                 )}
                 {inShoppingCart && (
-                    <ButtonInCart onClick={goToShoppingCart} type="button">В корзине</ButtonInCart>
+                    <ButtonInCart setItemsToLocalStorage={setItemsToLocalStorage} onClick={goToShoppingCart} type="button">В корзине</ButtonInCart>
                 )}
                 <FavoritesSign />
             </div>
