@@ -1,0 +1,19 @@
+.button_toCart {
+  width: 100px;
+  height: 40px;
+  background: #4056A1;
+  border-radius: 90px;
+  transition: .5s;
+  display: block;
+  cursor: pointer;
+  border: none;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+  color: #FFFFFF;
+}
+.button_toCart:hover, .button_toCart:active {
+  transform: scale(0.96);
+}

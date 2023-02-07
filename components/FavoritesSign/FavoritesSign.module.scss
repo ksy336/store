@@ -1,0 +1,8 @@
+.heart_image {
+  cursor: pointer;
+  transition: .5s;
+  display: block;
+}
+.heart_image:hover, .heart_image:active {
+  transform: scale(0.9);
+}
