@@ -7,34 +7,13 @@ import photo from "../../public/banner 1.png";
 import banner from "../../public/banner 2.png";
 
 type InitialProps = {
-    products: IProduct[]
+    products: IProduct[];
+    itemsToLocalStorage: any;
+    setItemsToLocalStorage: any;
 }
-export default function Cards({products}: InitialProps) {
+export default function Cards({products, itemsToLocalStorage, setItemsToLocalStorage}: InitialProps) {
     return (
         <>
-            {/*<article className={classes.first_article}>*/}
-            {/*    <div className={classes.work_text}>Всё для комфортной работы</div>*/}
-            {/*        <Image*/}
-            {/*            width="40"*/}
-            {/*            height="16"*/}
-            {/*            alt="it is an arrow image"*/}
-            {/*            src={arrow}*/}
-            {/*        />*/}
-            {/*    <div className={classes.banner}>*/}
-            {/*        <Image*/}
-            {/*            width="332"*/}
-            {/*            height="140"*/}
-            {/*            alt="it is an banner image"*/}
-            {/*            src={photo}*/}
-            {/*        />*/}
-            {/*    </div>*/}
-            {/*        <Image*/}
-            {/*            width="332"*/}
-            {/*            height="140"*/}
-            {/*            alt="it is an banner second image"*/}
-            {/*            src={banner}*/}
-            {/*        />*/}
-            {/*</article>*/}
             <div className={classes.cards}>
                 <article className={classes.first_article}>
                     <div className={classes.work_text}>Всё для комфортной работы</div>
@@ -67,6 +46,8 @@ export default function Cards({products}: InitialProps) {
                     <Card
                         key={product.id}
                         product={product}
+                        itemsToLocalStorage={itemsToLocalStorage}
+                        setItemsToLocalStorage={setItemsToLocalStorage}
                     />
                 ))}
             </div>

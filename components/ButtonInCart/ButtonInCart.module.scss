@@ -1,5 +1,5 @@
 .button_inCart {
-  width: 175px;
+  width: 100px;
   height: 40px;
   background: #00B177;
   border-radius: 90px;
@@ -11,4 +11,5 @@
   line-height: 20px;
   color: #FFFFFF;
   border: none;
+  z-index: 3;
 }

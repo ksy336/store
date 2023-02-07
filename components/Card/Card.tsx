@@ -7,15 +7,20 @@ import classes from "./Card.module.scss";
 import ButtonToCart from "@/components/ButtonToCart/ButtonToCart";
 import {useState} from "react";
 import ButtonInCart from "@/components/ButtonInCart/ButtonInCart";
+import useLocalStorage from "@/customHooks/useLocalStorage";
 
 type InitialPropsForProduct = {
-    product: IProduct
+    product: IProduct;
+    itemsToLocalStorage: any;
+    setItemsToLocalStorage: any;
 }
-export default function Card({product}: InitialPropsForProduct) {
+export default function Card({product, itemsToLocalStorage, setItemsToLocalStorage}: InitialPropsForProduct) {
+    const [numberOfItems, setNumberOfItems] = useLocalStorage("number", 1);
     const [inShoppingCart, setInShoppingCart] = useState(false);
     const size = 100;
     const addToCartHandler = () => {
         setInShoppingCart(true);
+        setItemsToLocalStorage((prev: any) => [...prev, {product}]);
     }
     const goToShoppingCart = () => {
         Router.push('/shopping-cart');
