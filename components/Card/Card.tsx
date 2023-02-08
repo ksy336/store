@@ -5,22 +5,28 @@ import StarRating from "@/components/StarRating/StarRating";
 import FavoritesSign from "@/components/FavoritesSign/FavoritesSign";
 import classes from "./Card.module.scss";
 import ButtonToCart from "@/components/ButtonToCart/ButtonToCart";
-import {useState} from "react";
 import ButtonInCart from "@/components/ButtonInCart/ButtonInCart";
 import useLocalStorage from "@/customHooks/useLocalStorage";
+import {useEffect, useState} from "react";
+
 
 type InitialPropsForProduct = {
     product: IProduct;
     itemsToLocalStorage: any;
     setItemsToLocalStorage: any;
+    numberOfFavorites: number;
+    setNumberOfFavourites: () => void;
 }
-export default function Card({product, itemsToLocalStorage, setItemsToLocalStorage}: InitialPropsForProduct) {
-    const [numberOfItems, setNumberOfItems] = useLocalStorage("number", 1);
-    const [inShoppingCart, setInShoppingCart] = useState(false);
+export default function Card({product, itemsToLocalStorage, setItemsToLocalStorage, numberOfFavorites, setNumberOfFavourites }: InitialPropsForProduct) {
+    const [id, setId] = useLocalStorage("id", []);
+    const [currentId, setCurrentId] = useState();
+    useEffect(() => {
+        setCurrentId(id)
+    })
     const size = 100;
     const addToCartHandler = () => {
-        setInShoppingCart(true);
         setItemsToLocalStorage((prev: any) => [...prev, {product}]);
+        setId((prev: any) => [...prev, product.id]);
     }
     const goToShoppingCart = () => {
         Router.push('/shopping-cart');
@@ -48,13 +54,13 @@ export default function Card({product, itemsToLocalStorage, setItemsToLocalStora
             )}
             <div className={classes.price}>{(product.price * 70).toFixed(2)} ₽ <span className={classes.price_single}>/шт.</span></div>
             <div className={classes.buttons}>
-                {!inShoppingCart && (
+                {id.includes(product.id) && (
                     <ButtonToCart onClick={addToCartHandler} type="button">В корзину</ButtonToCart>
                 )}
-                {inShoppingCart && (
+                {product.id === currentId && (
                     <ButtonInCart setItemsToLocalStorage={setItemsToLocalStorage} onClick={goToShoppingCart} type="button">В корзине</ButtonInCart>
                 )}
-                <FavoritesSign />
+                <FavoritesSign numberOfFavorites={numberOfFavorites} setNumberOfFavourites={setNumberOfFavourites} />
             </div>
         </article>
     )

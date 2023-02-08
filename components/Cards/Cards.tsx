@@ -9,9 +9,11 @@ import banner from "../../public/banner 2.png";
 type InitialProps = {
     products: IProduct[];
     itemsToLocalStorage: any;
-    setItemsToLocalStorage: any;
+    setItemsToLocalStorage: () => void;
+    numberOfFavorites: number;
+    setNumberOfFavourites: () => void;
 }
-export default function Cards({products, itemsToLocalStorage, setItemsToLocalStorage}: InitialProps) {
+export default function Cards({products, itemsToLocalStorage, setItemsToLocalStorage, numberOfFavorites, setNumberOfFavourites}: InitialProps) {
     return (
         <>
             <div className={classes.cards}>
@@ -48,6 +50,8 @@ export default function Cards({products, itemsToLocalStorage, setItemsToLocalSto
                         product={product}
                         itemsToLocalStorage={itemsToLocalStorage}
                         setItemsToLocalStorage={setItemsToLocalStorage}
+                        numberOfFavorites={numberOfFavorites}
+                        setNumberOfFavourites={setNumberOfFavourites}
                     />
                 ))}
             </div>

@@ -8,13 +8,16 @@ import cart from "../../public/cart.svg";
 interface Props {
     children?: ReactNode;
     itemsToLocalStorage?: any;
+    numberOfFavorites?: any;
 }
-export default function MainLayout({children, itemsToLocalStorage}: Props) {
+export default function MainLayout({children, itemsToLocalStorage, numberOfFavorites}: Props) {
     const [numberOfItems, setNumberOfItems] = useState(0);
+    const [favourites, setFavourites] = useState(0);
     useEffect(() => {
         setNumberOfItems(itemsToLocalStorage?.length);
-    })
-    // const numberOfItems = itemsToLocalStorage?.length;
+        setFavourites(numberOfFavorites);
+    }, [numberOfFavorites, itemsToLocalStorage]);
+
     const handleClick = () => {
         Router.push('/');
     }
@@ -40,7 +43,7 @@ export default function MainLayout({children, itemsToLocalStorage}: Props) {
                                 width="23"
                                 height="20"
                             />
-                        </span><span className={classes.heart_container}><span className={classes.heart_number}>0</span></span>
+                        </span><span className={classes.heart_container}><span className={classes.heart_number}>{favourites}</span></span>
                         </div>
                         <div className={classes.cart_block} onClick={goToCartPage}>
                             <span>

@@ -4,9 +4,11 @@ import plus from "../../public/+.svg";
 import minus from "../../public/-.svg";
 import {IProduct} from "@/components/Cards/Cards-types";
 import {useState} from "react";
+import useLocalStorage from "@/customHooks/useLocalStorage";
 
 export default function CountProducts({setItemsToLocalStorage}: any) {
-    const [count, setCount] = useState(1);
+    // const [count, setCount] = useState(1);
+    const [count, setCount] = useLocalStorage("number", 1);
     const deleteProductFromCart = () => {
         if (count === 1) {
             return
