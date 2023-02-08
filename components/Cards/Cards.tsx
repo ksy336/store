@@ -5,15 +5,19 @@ import classes from "./Cards.module.scss";
 import arrow from  "../../public/arrow.svg";
 import photo from "../../public/banner 1.png";
 import banner from "../../public/banner 2.png";
+import useLocalStorage from "@/customHooks/useLocalStorage";
+import FavoritesSign from "@/components/FavoritesSign/FavoritesSign";
 
 type InitialProps = {
     products: IProduct[];
     itemsToLocalStorage: any;
     setItemsToLocalStorage: () => void;
     numberOfFavorites: number;
-    setNumberOfFavourites: () => void;
+    setNumberOfFavourites: () => {};
 }
 export default function Cards({products, itemsToLocalStorage, setItemsToLocalStorage, numberOfFavorites, setNumberOfFavourites}: InitialProps) {
+    const [id, setId] = useLocalStorage("idArray", []);
+    const [redHeart, setRedHeart] = useLocalStorage("heart", []);
     return (
         <>
             <div className={classes.cards}>
@@ -33,6 +37,7 @@ export default function Cards({products, itemsToLocalStorage, setItemsToLocalSto
                             height="140"
                             alt="it is an banner image"
                             src={photo}
+                            className={classes.banner_img}
                         />
                     </div>
                     <div>
@@ -41,6 +46,8 @@ export default function Cards({products, itemsToLocalStorage, setItemsToLocalSto
                             height="140"
                             alt="it is an banner second image"
                             src={banner}
+                            className={classes.banner_img}
+
                         />
                     </div>
                 </article>
@@ -48,10 +55,14 @@ export default function Cards({products, itemsToLocalStorage, setItemsToLocalSto
                     <Card
                         key={product.id}
                         product={product}
+                        id={id}
+                        setId={setId}
                         itemsToLocalStorage={itemsToLocalStorage}
                         setItemsToLocalStorage={setItemsToLocalStorage}
                         numberOfFavorites={numberOfFavorites}
                         setNumberOfFavourites={setNumberOfFavourites}
+                        redHeart={redHeart}
+                        setRedHeart={setRedHeart}
                     />
                 ))}
             </div>

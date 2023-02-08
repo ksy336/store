@@ -1,34 +1,36 @@
+import {useMemo} from "react";
 import Image from "next/image";
 import classes from "./CountProducts.module.scss";
 import plus from "../../public/+.svg";
 import minus from "../../public/-.svg";
 import {IProduct} from "@/components/Cards/Cards-types";
-import {useState} from "react";
-import useLocalStorage from "@/customHooks/useLocalStorage";
 
-export default function CountProducts({setItemsToLocalStorage}: any) {
-    // const [count, setCount] = useState(1);
-    const [count, setCount] = useLocalStorage("number", 1);
+export default function CountProducts({product, itemsToLocalStorage, setItemsToLocalStorage}: any) {
+    let count = useMemo(() => itemsToLocalStorage?.reduce((prev: any, curr: any) => curr.count, 0), [itemsToLocalStorage]);
     const deleteProductFromCart = () => {
-        if (count === 1) {
-            return
-        }
-        setCount(count - 1);
+        // if (count === 1) {
+        //     return
+        // }
+        // setCount(count - 1);
     }
     const addProductToCart = () => {
         if (count === 20) {
             return;
         }
-        setCount(count + 1);
-        // setItemsToLocalStorage((cartItems: IProduct[]) => {
-        //     return cartItems?.map((product: IProduct) => {
-        //        return {
-        //            ...product,
-        //
-        //        }
-        //     })
-        // })
-    }
+        setItemsToLocalStorage((itemsToLocalStorage: IProduct[]) => {
+            return itemsToLocalStorage?.map((storeItem: any) => {
+                if (storeItem?.id === product.id) {
+                    return {
+                        ...storeItem,
+                        count: Number(++count),
+                        totalPrice: Number(count) * Number(product.price),
+                    }
+                }
+                return storeItem;
+            })
+        })
+    };
+    console.log(count);
     return (
         <div className={classes.button_count}>
             <Image

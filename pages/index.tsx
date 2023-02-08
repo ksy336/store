@@ -11,7 +11,7 @@ type InitialProps = {
 }
 export default function Index({products}: InitialProps) {
      const [itemsToLocalStorage, setItemsToLocalStorage] = useLocalStorage("products", []);
-    const [numberOfFavorites, setNumberOfFavourites] = useLocalStorage("favoritesNumber", 0);
+     const [numberOfFavorites, setNumberOfFavourites] = useLocalStorage("favoritesNumber", 0);
      return (
         <div className={classes.wrapper}>
             <MainLayout itemsToLocalStorage={itemsToLocalStorage} numberOfFavorites={numberOfFavorites}>
@@ -38,6 +38,13 @@ export default function Index({products}: InitialProps) {
     )
 }
 Index.getInitialProps = async () => {
-    const products = await productsService.getAllProducts();
+    const data = await productsService.getAllProducts();
+    const products = data?.map((item) => {
+        return {
+            ...item,
+            count: 1,
+            totalPrice: Number(item.price)
+        }
+    })
     return {products};
 }

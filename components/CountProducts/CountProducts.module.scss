@@ -11,6 +11,11 @@
   right: 95px;
   cursor: pointer;
 }
+@media screen and (max-width: 800px) {
+  .button_count {
+    left: 55px;
+  }
+}
 .icon_minus {
   width: 10px;
   height: 2px;

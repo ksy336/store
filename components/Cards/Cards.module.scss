@@ -65,6 +65,9 @@
   margin-top: 34px;
   margin-bottom: 10px;
 }
+.banner_img {
+  width: 332px
+}
 .first_article:hover {
   transform: scale(1);
 }
@@ -85,5 +88,9 @@
     position: relative;
     left: 0;
     width: 100%;
+  }
+  .banner_img {
+    width: 100%;
+    min-width: 300px
   }
 }

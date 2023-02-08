@@ -1,25 +1,39 @@
 import Image from "next/image";
 import image from "../../public/favourites.svg";
 import redImage from "../../public/heart2.svg";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import styles from "./FavoritesSign.module.scss";
-import useLocalStorage from "@/customHooks/useLocalStorage";
+import {IProduct} from "@/components/Cards/Cards-types";
 
 type InitialPropsForSign = {
     numberOfFavorites: number;
     setNumberOfFavourites: (num: number) => void;
+    product: IProduct;
+    redHeart: number[];
+    setRedHeart: (prev: any) => {};
 }
-export default function FavoritesSign({numberOfFavorites, setNumberOfFavourites}: InitialPropsForSign) {
-    // const [redHeart, setRedHeart] = useLocalStorage("heart", false);
-    const [redHeart, setRedHeart] = useState( false);
+export default function FavoritesSign({ redHeart, setRedHeart, product, numberOfFavorites, setNumberOfFavourites}: InitialPropsForSign) {
+    const [heart, setHeart] = useState<number[]>( []);
+    useEffect(() => {
+        setHeart(redHeart);
+    })
     const addToFavorites = () => {
-        setRedHeart(true);
+        setRedHeart((prev: any) => [...prev, product.id] )
         setNumberOfFavourites(numberOfFavorites + 1);
     }
-
+    const removeFromFavorites = () => {
+        if (numberOfFavorites < 0) {
+            return
+        }
+        setNumberOfFavourites(numberOfFavorites - 1);
+        setRedHeart((prev: any) => {
+            console.log(prev);
+            return [...prev].filter((item) => item !== product.id)
+        });
+    }
     return (
         <>
-            {!redHeart && (
+            {!heart?.includes(product.id) && (
                     <Image
                         src={image}
                         alt="it is photo"
@@ -29,13 +43,14 @@ export default function FavoritesSign({numberOfFavorites, setNumberOfFavourites}
                         className={styles.heart_image}
                     />
             )}
-            {redHeart && (
+            {heart?.includes(product.id) && (
                 <Image
                     src={redImage}
                     alt="it is photo"
                     width="40"
                     height="40"
                     className={styles.heart_image}
+                    onClick={removeFromFavorites}
                 />
             )}
         </>
