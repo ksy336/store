@@ -6,16 +6,15 @@ import arrow from  "../../public/arrow.svg";
 import photo from "../../public/banner 1.png";
 import banner from "../../public/banner 2.png";
 import useLocalStorage from "@/customHooks/useLocalStorage";
-import FavoritesSign from "@/components/FavoritesSign/FavoritesSign";
 
 type InitialProps = {
     products: IProduct[];
-    itemsToLocalStorage: any;
-    setItemsToLocalStorage: () => void;
     numberOfFavorites: number;
     setNumberOfFavourites: () => {};
+    cartItems: IProduct[];
+    setCartItems: (prev: any) => {};
 }
-export default function Cards({products, itemsToLocalStorage, setItemsToLocalStorage, numberOfFavorites, setNumberOfFavourites}: InitialProps) {
+export default function Cards({cartItems, setCartItems, products, numberOfFavorites, setNumberOfFavourites}: InitialProps) {
     const [id, setId] = useLocalStorage("idArray", []);
     const [redHeart, setRedHeart] = useLocalStorage("heart", []);
     return (
@@ -57,8 +56,8 @@ export default function Cards({products, itemsToLocalStorage, setItemsToLocalSto
                         product={product}
                         id={id}
                         setId={setId}
-                        itemsToLocalStorage={itemsToLocalStorage}
-                        setItemsToLocalStorage={setItemsToLocalStorage}
+                        cartItems={cartItems}
+                        setCartItems={setCartItems}
                         numberOfFavorites={numberOfFavorites}
                         setNumberOfFavourites={setNumberOfFavourites}
                         redHeart={redHeart}

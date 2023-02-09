@@ -7,16 +7,17 @@ import cart from "../../public/cart.svg";
 
 interface Props {
     children?: ReactNode;
-    itemsToLocalStorage?: any;
+    cartItems?: any;
     numberOfFavorites?: any;
 }
-export default function MainLayout({children, itemsToLocalStorage, numberOfFavorites}: Props) {
+export default function MainLayout({cartItems, children, numberOfFavorites }: Props) {
+    // const numberOfItems = cartItems?.length;
     const [numberOfItems, setNumberOfItems] = useState(0);
     const [favourites, setFavourites] = useState(0);
     useEffect(() => {
-        setNumberOfItems(itemsToLocalStorage?.length);
+        setNumberOfItems(cartItems?.length);
         setFavourites(numberOfFavorites);
-    }, [numberOfFavorites, itemsToLocalStorage]);
+    }, [numberOfFavorites, cartItems]);
 
     const handleClick = () => {
         Router.push('/');

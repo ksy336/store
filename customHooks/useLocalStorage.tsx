@@ -14,6 +14,11 @@ function useLocalStorage(key: string, initialValue: any) {
         }
     });
 
+    // let valueToStore = value;
+    // if (value instanceof Function) {
+    //     const item = window.localStorage.getItem(key);
+    //     valueToStore = value(item ? JSON.parse(item) : initialValue)
+    // }
     const setValue = (value: any) => {
         try {
             const valueToStore = value instanceof Function ? value(storedValue) : value;

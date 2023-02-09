@@ -6,6 +6,8 @@ export interface IProduct {
     price: number;
     rating: IRating;
     title: string;
+    count: number;
+    totalPrice: number;
 }
 export interface IRating {
     rate: number;
