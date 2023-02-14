@@ -7,6 +7,7 @@ import ButtonInCart from "@/components/ButtonInCart/ButtonInCart";
 import FavoritesProduct from "@/components/FavoritesProducts/FavoritesProduct";
 import classes from "@/styles/shopping-cart.module.scss";
 import Footer from "@/components/Footer/Footer";
+import FooterBottom from "@/components/FooterBottom/FooterBottom";
 
 export default function Favorites() {
     const [favoriteProducts] = useLocalStorage("favorites", []);
@@ -43,7 +44,11 @@ export default function Favorites() {
                     </div>
                 )}
             </MainLayout>
-            {/*<Footer />*/}
+            {cartItems?.length > 0 ? (
+                <Footer />
+            ) : (
+                <FooterBottom />
+            )}
         </div>
     )
 }

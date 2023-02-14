@@ -6,6 +6,7 @@ import {IProduct} from "@/components/Cards/Cards-types";
 import classes from "../styles/Home.module.scss";
 import useLocalStorage from "@/customHooks/useLocalStorage";
 import Footer from "@/components/Footer/Footer";
+import FooterBottom from "@/components/FooterBottom/FooterBottom";
 
 type InitialProps = {
     products: IProduct[]
@@ -36,7 +37,11 @@ export default function Index({products}: InitialProps) {
                     setCartItems={setCartItems}
                 />
             </MainLayout>
-            {/*<Footer />*/}
+            {products?.length > 0 ? (
+                <Footer />
+            ) : (
+                <FooterBottom />
+            )}
         </div>
     )
 }

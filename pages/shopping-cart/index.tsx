@@ -8,6 +8,7 @@ import Head from "next/head";
 import ButtonInCart from "@/components/ButtonInCart/ButtonInCart";
 import {useMemo} from "react";
 import Footer from "@/components/Footer/Footer";
+import FooterBottom from "@/components/FooterBottom/FooterBottom";
 
 export default function ShoppingCart() {
     const [cartItems, setCartItems] = useLocalStorage("products", []);
@@ -50,15 +51,22 @@ export default function ShoppingCart() {
                         ))}
                     </div>
                 )}
-                <div className={classes.button_block}>
-                    <div className={classes.button_container}>
-                        <div className={classes.button_text}>
-                            <span>ИТОГО</span>
-                            <span>{totalPrice.toFixed(2)} ₽</span>
+                {cartItems?.length > 0 && (
+                    <div className={classes.button_block}>
+                        <div className={classes.button_container}>
+                            <div className={classes.button_text}>
+                                <span>ИТОГО</span>
+                                <span>{totalPrice.toFixed(2)} ₽</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {/*<Footer />*/}
+                )}
+                {cartItems?.length > 0 ? (
+                    <Footer />
+                ) : (
+                    <FooterBottom />
+                )}
+
             </MainLayout>
         </div>
     )
