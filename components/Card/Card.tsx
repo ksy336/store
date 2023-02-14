@@ -9,6 +9,7 @@ import ButtonToCart from "@/components/ButtonToCart/ButtonToCart";
 import ButtonInCart from "@/components/ButtonInCart/ButtonInCart";
 import CountProducts from "@/components/CountProducts/CountProducts";
 import hit from "../../public/hit.png"
+import openNotification from "@/helper/notification";
 
 type InitialPropsForProduct = {
     product: IProduct;
@@ -20,8 +21,10 @@ type InitialPropsForProduct = {
     setRedHeart: (prev: any) => {};
     cartItems: IProduct[];
     setCartItems: (prev: any) => {};
+    setFavoriteProducts: (prev: any) => {};
+    favoriteProducts: IProduct[];
 }
-export default function Card ({setCartItems, cartItems, id, setId,  product, numberOfFavorites, setNumberOfFavourites, redHeart, setRedHeart, }: InitialPropsForProduct) {
+export default function Card ({setCartItems, cartItems, id, setId,  product, numberOfFavorites, setNumberOfFavourites, redHeart, setRedHeart, setFavoriteProducts, favoriteProducts }: InitialPropsForProduct) {
     const [currentId, setCurrentId] = useState<number[]>([]);
     useEffect(() => {
         setCurrentId(id);
@@ -36,9 +39,13 @@ export default function Card ({setCartItems, cartItems, id, setId,  product, num
         setCartItems((prev: any) => {
            return  [...prev, {...product}]
         });
+        try {
+            openNotification("success", "Товар добавлен в корзину!");
+        } catch(e) {
+            openNotification("error", "Произошла ошибка! Попробуйте снова");
+        }
     }
     const goToShoppingCart = () => {
-        console.log("hi")
         Router.push('/shopping-cart');
     }
 
@@ -85,6 +92,8 @@ export default function Card ({setCartItems, cartItems, id, setId,  product, num
                     </>
                     )}
                 <FavoritesSign
+                    setFavoriteProducts={setFavoriteProducts}
+                    favoriteProducts={favoriteProducts}
                     redHeart={redHeart}
                     setRedHeart={setRedHeart}
                     product={product}

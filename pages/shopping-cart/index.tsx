@@ -7,6 +7,7 @@ import MainLayout from "@/components/Layout/MainLayout";
 import Head from "next/head";
 import ButtonInCart from "@/components/ButtonInCart/ButtonInCart";
 import {useMemo} from "react";
+import Footer from "@/components/Footer/Footer";
 
 export default function ShoppingCart() {
     const [cartItems, setCartItems] = useLocalStorage("products", []);
@@ -29,28 +30,35 @@ export default function ShoppingCart() {
                         rel="stylesheet" />
 
                 </Head>
-                 <h1>Корзина</h1>
-                <ButtonInCart onClick={goLinkHome}>Back home</ButtonInCart>
-                <div className={classes.carts_container}>
-                    {cartItems?.map((cart: IProduct) => (
-                    <SingleCart
-                        cart={cart}
-                        key={cart.id}
-                        cartItems={cartItems}
-                        setCartItems={setCartItems}
-                        setId={setId}
-                        id={id}
-                    />
-                    ))}
-                </div>
+                <article className={classes.block_text}>
+                    <h1>Корзина</h1>
+                    <ButtonInCart onClick={goLinkHome}>Back home</ButtonInCart>
+                </article>
+                {cartItems?.length === 0 ? (
+                    <h1 className={classes.no_items}>Корзина пуста</h1>
+                ) : (
+                    <div className={classes.carts_container}>
+                        {cartItems?.map((cart: IProduct) => (
+                            <SingleCart
+                                cart={cart}
+                                key={cart.id}
+                                cartItems={cartItems}
+                                setCartItems={setCartItems}
+                                setId={setId}
+                                id={id}
+                            />
+                        ))}
+                    </div>
+                )}
                 <div className={classes.button_block}>
                     <div className={classes.button_container}>
                         <div className={classes.button_text}>
                             <span>ИТОГО</span>
-                            <span>{totalPrice} ₽</span>
+                            <span>{totalPrice.toFixed(2)} ₽</span>
                         </div>
                     </div>
                 </div>
+                {/*<Footer />*/}
             </MainLayout>
         </div>
     )

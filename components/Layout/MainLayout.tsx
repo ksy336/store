@@ -11,7 +11,6 @@ interface Props {
     numberOfFavorites?: any;
 }
 export default function MainLayout({cartItems, children, numberOfFavorites }: Props) {
-    // const numberOfItems = cartItems?.length;
     const [numberOfItems, setNumberOfItems] = useState(0);
     const [favourites, setFavourites] = useState(0);
     useEffect(() => {
@@ -29,7 +28,7 @@ export default function MainLayout({cartItems, children, numberOfFavorites }: Pr
         Router.push("/favorites");
     }
     return (
-        <>
+        <div className={classes.wrapper}>
             <header className={classes.header_header_first}>
                 <div className={classes.header_wrapper}>
                     <div className={classes.header_logo} onClick={handleClick}>
@@ -62,6 +61,6 @@ export default function MainLayout({cartItems, children, numberOfFavorites }: Pr
             <main className={classes.main}>
                 {children}
             </main>
-        </>
+        </div>
     )
 }

@@ -17,6 +17,7 @@ type InitialProps = {
 export default function Cards({cartItems, setCartItems, products, numberOfFavorites, setNumberOfFavourites}: InitialProps) {
     const [id, setId] = useLocalStorage("idArray", []);
     const [redHeart, setRedHeart] = useLocalStorage("heart", []);
+    const [favoriteProducts, setFavoriteProducts] = useLocalStorage("favorites", []);
     return (
         <>
             <div className={classes.cards}>
@@ -62,6 +63,8 @@ export default function Cards({cartItems, setCartItems, products, numberOfFavori
                         setNumberOfFavourites={setNumberOfFavourites}
                         redHeart={redHeart}
                         setRedHeart={setRedHeart}
+                        favoriteProducts={favoriteProducts}
+                        setFavoriteProducts={setFavoriteProducts}
                     />
                 ))}
             </div>

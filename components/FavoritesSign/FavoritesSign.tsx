@@ -4,6 +4,7 @@ import redImage from "../../public/heart2.svg";
 import {useEffect, useState} from "react";
 import styles from "./FavoritesSign.module.scss";
 import {IProduct} from "@/components/Cards/Cards-types";
+import openNotification from "@/helper/notification";
 
 type InitialPropsForSign = {
     numberOfFavorites: number;
@@ -11,15 +12,25 @@ type InitialPropsForSign = {
     product: IProduct;
     redHeart: number[];
     setRedHeart: (prev: any) => {};
+    setFavoriteProducts: (prev: any) => {};
+    favoriteProducts: IProduct[];
 }
-export default function FavoritesSign({ redHeart, setRedHeart, product, numberOfFavorites, setNumberOfFavourites}: InitialPropsForSign) {
+export default function FavoritesSign({ redHeart, setRedHeart, product, numberOfFavorites, setNumberOfFavourites, setFavoriteProducts, favoriteProducts}: InitialPropsForSign) {
     const [heart, setHeart] = useState<number[]>( []);
+    const [favoritesForState, setFavoritesForState] = useState<IProduct[]>([]);
     useEffect(() => {
         setHeart(redHeart);
+        setFavoritesForState(favoriteProducts);
     })
     const addToFavorites = () => {
         setRedHeart((prev: any) => [...prev, product.id] )
         setNumberOfFavourites(numberOfFavorites + 1);
+        setFavoriteProducts((prev: any) => [...prev, product]);
+        try {
+            openNotification("success", "Товар добавлен в избранное!");
+        } catch(e) {
+            openNotification("error", "Произошла ошибка! Попробуйте снова");
+        }
     }
     const removeFromFavorites = () => {
         if (numberOfFavorites < 0) {
@@ -30,6 +41,12 @@ export default function FavoritesSign({ redHeart, setRedHeart, product, numberOf
             console.log(prev);
             return [...prev].filter((item) => item !== product.id)
         });
+        setFavoriteProducts((prev: any) => [...prev].filter((item) => item.id !== product.id))
+        try {
+            openNotification("success", "Товар удален из избранного!");
+        } catch(e) {
+            openNotification("error", "Произошла ошибка! Попробуйте снова");
+        }
     }
     return (
         <>

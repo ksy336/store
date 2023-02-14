@@ -5,6 +5,7 @@ import Cards from "@/components/Cards/Cards";
 import {IProduct} from "@/components/Cards/Cards-types";
 import classes from "../styles/Home.module.scss";
 import useLocalStorage from "@/customHooks/useLocalStorage";
+import Footer from "@/components/Footer/Footer";
 
 type InitialProps = {
     products: IProduct[]
@@ -35,6 +36,7 @@ export default function Index({products}: InitialProps) {
                     setCartItems={setCartItems}
                 />
             </MainLayout>
+            {/*<Footer />*/}
         </div>
     )
 }
